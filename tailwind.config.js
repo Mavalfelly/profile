@@ -15,7 +15,8 @@ module.exports = {
       colors: {
         primary: '#ff5722', 
         secondary: '#009688', 
-        greybg: '#1a1919'
+        greybg: '#1a1919',
+        'custom-bg': 'rgba(7,11,21,255)',
       },
       spacing: {
         '128': '32rem',

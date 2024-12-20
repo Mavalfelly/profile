@@ -1,0 +1,32 @@
+.typewriter-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 32px;
+    color: #fff; 
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: #fff;
+    margin-left: 5px;
+    animation: blink 0.8s infinite;
+  }
+  
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .typewriter-text {
+    transition: width 0.3s ease-in-out;
+  }
