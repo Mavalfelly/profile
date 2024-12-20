@@ -1,7 +1,7 @@
 
 const Footer = () => {
     return (
-        <footer className="flex flex-col justify-center items-center bg-gray-800 text-white py-4 fixed bottom-0 w-full">
+        <footer className="flex flex-col justify-center items-center bg-gray-800 text-white py-4 bottom-0 w-full">
         <div className="flex gap-8 mb-4">
           <a href="https://github.com/mavalfelly" className="text-4xl hover:text-gray-400">
             <ion-icon name="logo-github"></ion-icon>
