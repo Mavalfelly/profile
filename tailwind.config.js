@@ -17,6 +17,8 @@ module.exports = {
         secondary: '#009688', 
         greybg: '#1a1919',
         'custom-bg': 'rgba(7,11,21,255)',
+        'terminal-green': '#00ff00',
+        'terminal-green-light': '#66ff66',
       },
       spacing: {
         '128': '32rem',

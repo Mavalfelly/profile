@@ -19,7 +19,7 @@ const Footer = () => {
   
         <div id="build" className="text-center">
           <p className="text-sm text-gray-400">
-            Built by Matt using React, TypeScript, JavaScript, Tailwind, and Django.
+            Built by Matt using React, TypeScript, JavaScript, Tailwind, and Redbulls.
           </p>
         </div>
       </footer>
