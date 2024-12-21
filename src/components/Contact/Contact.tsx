@@ -12,10 +12,10 @@ export const ContactUs: React.FC = () => {
 
     emailjs
       .sendForm(
-        'Profile', // Replace with your EmailJS Service ID
-        'portfo', // Replace with your EmailJS Template ID
+        'Profile',
+        'portfo', 
         form.current,
-        'gRckUfUM1Cosvs5dx', // Replace with your EmailJS Public Key
+        'gRckUfUM1Cosvs5dx',
       )
       .then(
         () => {
@@ -79,7 +79,7 @@ export const ContactUs: React.FC = () => {
           <input
             type="submit"
             value="Send"
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600"
+            className="w-full px-4 py-2 bg-lime-600  text-white rounded cursor-pointer hover:bg-lime-800"
           />
         </div>
       </form>

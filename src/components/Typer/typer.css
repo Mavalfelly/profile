@@ -1,7 +1,7 @@
 .typewriter-text {
     font-family: 'Press Start 2P', cursive;
     font-size: 32px;
-    color: #fff; 
+    color: black; 
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -10,7 +10,7 @@
   .cursor {
     display: inline-block;
     width: 10px;
-    background-color: #fff;
+    background-color: black;
     margin-left: 5px;
     animation: blink 0.8s infinite;
   }

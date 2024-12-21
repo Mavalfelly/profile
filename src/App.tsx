@@ -4,7 +4,8 @@ import Land from './components/Landing Page/land'
 import Nav from './components/Nav/nav'
 import Footer from './components/Footer/foot'
 import { ContactUs } from './components/Contact/Contact'
-import Typer from './components/AbMe/typer'
+import AbMe from './components/AboutMe/aboutMe'
+import TechScroller from './components/TechStack/tech'
 
 function App() {
   return (
@@ -18,15 +19,11 @@ function App() {
           <Land />
         </div>
       </section>
-      <section className="bg-custom-bg bg-opacity-50 py-16">
-        <div className="max-w-4xl mx-auto text-center  text-white">
-          <Typer
-            phrases={['A little about Matt', 'Forever a learner']}
-            speed={150} // Typing speed
-            deleteSpeed={100} // Deleting speed
-            displayTime={4000} // Time to display each phrase before deleting
-          />
-        </div>
+      <section className='bg-white'>
+        <AbMe/>
+      </section>
+      <section className="py-4 relative z-10">
+        <TechScroller /> 
       </section>
       <section className="bg-slate-900">
         <ContactUs />
