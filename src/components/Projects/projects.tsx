@@ -46,12 +46,12 @@ const ProjectShowcase = () => {
 
   const handleNextProject = () => {
     setCurrentProject((prev) => (prev + 1) % projects.length);
-    setActivePhoto(0); // Reset the photo index for the next project
+    setActivePhoto(0); 
   };
 
   const handlePrevProject = () => {
     setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
-    setActivePhoto(0); // Reset the photo index for the previous project
+    setActivePhoto(0); 
   };
 
   const handleNextPhoto = () => {
