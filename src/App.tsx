@@ -1,5 +1,5 @@
 import './index.css'
-import BackgroundVideo from './components/BckVid/backvid'
+import BackgroundVideo from './components/BckVid/backvid.tsx'
 import Land from './components/Landing Page/land'
 import Nav from './components/Nav/nav'
 import Footer from './components/Footer/foot'
