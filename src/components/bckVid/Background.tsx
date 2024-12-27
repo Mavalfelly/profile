@@ -1,4 +1,4 @@
-import "../bckVid/backVid.css";
+import "./backVid.css";
 
 const BackgroundVideo = () => {
   return (
