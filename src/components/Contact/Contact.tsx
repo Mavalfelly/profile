@@ -46,7 +46,7 @@ export const ContactUs: React.FC = () => {
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="z-10 bg-gray-800 bg-opacity-75 p-8 rounded-lg shadow-lg w-full max-w-md space-y-4"
+        className="z-10 bg-gray-800 bg-opacity-75 p-4 md:p-8 rounded-lg shadow-lg w-full max-w-md mx-4 md:mx-auto space-y-4"
       >
         <div>
           <label className="block text-sm font-medium">Name</label>

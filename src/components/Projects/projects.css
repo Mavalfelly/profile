@@ -120,4 +120,32 @@
       font-size: 1.5rem;
     }
   }
+  .project-showcase {
+    padding: 1rem;
+  }
   
+  @media (max-width: 768px) {
+    .project-card {
+      width: 90%;
+      margin: 0 auto;
+    }
+    
+    .project-photo {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .carousel-nav {
+      padding: 0.5rem;
+    }
+    
+    .project-description {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    
+    .project-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import "../Typer/typer.css"
+import "./typer.css"
 
 interface TypewriterProps {
   phrases: string[];
@@ -13,6 +13,7 @@ const Typer: React.FC<TypewriterProps> = ({ phrases, speed, deleteSpeed, display
   const [phraseIndex, setPhraseIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const currentTextLength = useRef<number>(0);
 
@@ -40,9 +41,9 @@ const Typer: React.FC<TypewriterProps> = ({ phrases, speed, deleteSpeed, display
 
         if (nextText.length === 0) {
           setIsDeleting(false);
-          setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); 
+          setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
           setIsTyping(true);
-          currentTextLength.current = 0; 
+          currentTextLength.current = 0;
         }
       }, deleteSpeed);
     }
@@ -50,7 +51,14 @@ const Typer: React.FC<TypewriterProps> = ({ phrases, speed, deleteSpeed, display
     return () => clearTimeout(timer);
   }, [text, isTyping, isDeleting, phraseIndex, phrases, speed, deleteSpeed, displayTime]);
 
-  return <span className="typewriter-text ">{text}<span className="cursor">|</span></span>;
+  return (
+    <div 
+      ref={containerRef} 
+      className="typewriter-container"
+    >
+      <span className="typewriter-text">{text}<span className="cursor">|</span></span>
+    </div>
+  );
 };
 
 export default Typer;
