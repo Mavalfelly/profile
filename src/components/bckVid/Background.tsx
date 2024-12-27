@@ -12,7 +12,7 @@ const BackgroundVideo: React.FC = () => {
         preload="true"
         loop
         className="bg-video"
-        src="/back.vid.mp4"
+        src="/back.mp4"
       />
     </div>
   );
