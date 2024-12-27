@@ -1,6 +1,8 @@
+import React from 'react'; 
 import "./backVid.css";
 
-const BackgroundVideo = () => {
+
+const BackgroundVideo: React.FC = () => {
   return (
     <div className="video-container">
       <div className="video-overlay" />
