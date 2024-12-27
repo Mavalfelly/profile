@@ -18,7 +18,7 @@ const AbMe = () => {
         {/* Typewriter */}
         <div className="mb-6 text-lg md:text-xl font-semibold text-gray-800">
           <Typer
-            phrases={["A little about me", "Forever a learner", "Forever evolving"]}
+            phrases={["About Matt", "Forever a learner", "Forever evolving"]}
             speed={100}
             deleteSpeed={50}
             displayTime={2500}
