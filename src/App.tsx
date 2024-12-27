@@ -1,5 +1,5 @@
 import './index.css'
-import BackgroundVideo from './components/BckVid/Background'
+// import BackgroundVideo from './components/BckVid/Background'
 import Land from './components/Landing Page/land'
 import Nav from './components/Nav/nav'
 import Footer from './components/Footer/foot'
@@ -15,7 +15,7 @@ function App() {
         <Nav />
       </header>
       <section className="landing-section relative h-screen">
-        <BackgroundVideo />
+        {/* <BackgroundVideo /> */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <Land />
         </div>
