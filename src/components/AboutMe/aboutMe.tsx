@@ -4,7 +4,7 @@ const AbMe = () => {
   return (
     <div
       id="about_me"
-      className="flex flex-col md:flex-row bg-lime-800 bg-opacity-50 shadow-lg rounded-lg p-4 md:p-10 mx-4 md:mx-auto my-6 md:my-10 max-w-5xl"
+      className="flex flex-col md:flex-row bg-lime-300 bg-opacity-75 shadow-lg rounded-lg p-4 md:p-10 mx-4 md:mx-auto my-6 md:my-10 max-w-5xl z-10"
     >
       {/* Left Section: Headshot */}
       <div className="flex justify-center md:justify-start flex-shrink-0 mb-6 md:mb-0 md:mr-10">
@@ -18,7 +18,7 @@ const AbMe = () => {
         {/* Typewriter */}
         <div className="mb-6 text-lg md:text-xl font-semibold text-gray-800">
           <Typer
-            phrases={["About Matt", "Forever a learner", "Forever evolving"]}
+            phrases={["About Matt", "Forever learning", "Forever evolving"]}
             speed={100}
             deleteSpeed={50}
             displayTime={2500}
@@ -28,7 +28,7 @@ const AbMe = () => {
         {/* Professional Summary */}
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">Professional Summary</h2>
-          <p className="text-gray-700 text-lg leading-relaxed">
+          <p className="text-gray-800 text-lg leading-relaxed">
              I am a software engineer with strong expertise in JavaScript, Node.js, Express.js, PostgreSQL, SQL, Python, Django, and Java. I have extensive experience in front-end technologies, including React.js, HTML5, and CSS3, and utilize AutoHotkey scripting for workflow automation. With a focus on building impactful, tech-driven solutions, I thrive in dynamic environments, leveraging my technical skills to contribute to innovative projects and deliver results.
           </p>
         </div>
@@ -42,7 +42,6 @@ const AbMe = () => {
         </a>
       </div>
     </div>
-    
   );
 };
 

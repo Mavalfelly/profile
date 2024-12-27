@@ -20,7 +20,7 @@ function App() {
           <Land />
         </div>
       </section>
-      <section className='bg-white'>
+      <section className='bg-custom-bg'>
         <AbMe/>
       </section>
       <section className="py-4 relative z-10">
@@ -28,7 +28,6 @@ function App() {
       </section>
       <section>
       <div>
-      <h1>My Projects</h1>
       <ProjectShowcase />
     </div>
       </section>
