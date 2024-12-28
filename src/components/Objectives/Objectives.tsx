@@ -35,12 +35,11 @@ const ObjectivesSection = () => {
   ];
 
   return (
-    <div className="w-full bg-custom-bg py-16 px-4">
+    <div className="w-full bg-custom-bg py-16 px-4" id='obj'>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-cust-green mb-12">
           Career Objectives
         </h2>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {objectives.map((objective, index) => (
             <div 

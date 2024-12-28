@@ -39,6 +39,10 @@ const Nav = () => {
           <span className="hover:text-gray-300 transition duration-300">View My Work</span>
           <span className="absolute left-0 -bottom-1 w-0 h-1 bg-white transition-all duration-300 group-hover:w-full"></span>
         </a>
+        <a href="#obj" className="relative group">
+          <span className="hover:text-gray-300 transition duration-300">Career Objectives</span>
+          <span className="absolute left-0 -bottom-1 w-0 h-1 bg-white transition-all duration-300 group-hover:w-full"></span>
+        </a>
         <a href="#contact_me" className="relative group">
           <span className="hover:text-gray-300 transition duration-300">Contact Me</span>
           <span className="absolute left-0 -bottom-1 w-0 h-1 bg-white transition-all duration-300 group-hover:w-full"></span>
