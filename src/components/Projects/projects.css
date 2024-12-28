@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    padding: 50px 0px 125px 0px;
     background-color: rgba(7,11,21,255); 
   }
   
@@ -119,9 +119,6 @@
     .carousel-nav {
       font-size: 1.5rem;
     }
-  }
-  .project-showcase {
-    padding: 1rem;
   }
   
   @media (max-width: 768px) {

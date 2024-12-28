@@ -7,6 +7,7 @@ import { ContactUs } from './components/Contact/Contact'
 import AbMe from './components/AboutMe/aboutMe'
 import TechScroller from './components/TechStack/tech'
 import ProjectShowcase from './components/Projects/projects'
+import ObjectivesSection from './components/Objectives/Objectives'
 
 function App() {
   return (
@@ -27,9 +28,10 @@ function App() {
         <TechScroller /> 
       </section>
       <section>
-      <div>
       <ProjectShowcase />
-    </div>
+      </section>
+      <section>
+        <ObjectivesSection/>
       </section>
       <section className="bg-slate-900">
         <ContactUs />

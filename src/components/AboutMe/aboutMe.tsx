@@ -4,7 +4,7 @@ const AbMe = () => {
   return (
     <div
       id="about_me"
-      className="flex flex-col md:flex-row bg-lime-300 bg-opacity-75 shadow-lg rounded-lg p-4 md:p-10 mx-4 md:mx-auto my-6 md:my-10 max-w-5xl z-10"
+      className="flex flex-col md:flex-row bg-lime-300 bg-opacity-60 shadow-lg rounded-lg p-8 md:p-10 mx-4 md:mx-auto my-6 md:my-10 max-w-5xl z-10"
     >
       {/* Left Section: Headshot */}
       <div className="flex justify-center md:justify-start flex-shrink-0 mb-6 md:mb-0 md:mr-10">

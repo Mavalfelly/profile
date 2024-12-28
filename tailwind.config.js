@@ -19,6 +19,7 @@ module.exports = {
         'custom-bg': 'rgba(7,11,21,255)',
         'terminal-green': '#00ff00',
         'terminal-green-light': '#66ff66',
+        'cust-green': 'rgba(144,184,80)'
       },
       spacing: {
         '128': '32rem',

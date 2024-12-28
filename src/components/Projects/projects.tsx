@@ -83,6 +83,9 @@ const ProjectShowcase = () => {
 
   return (
     <>
+      <div className="w-full pt-24 bg-custom-bg">
+        <h2 className="text-4xl font-bold text-center text-cust-green ">MY PROJECTS</h2>
+      </div>
       <div className="project-showcase" id="project-showcase">
         <div className="project-carousel">
           <button className="carousel-nav prev" onClick={handlePrevProject}>
