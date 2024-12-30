@@ -1,6 +1,6 @@
 .typewriter-text {
     font-family: 'Press Start 2P', cursive;
-    font-size: 32px;
+    font-size: 28px;
     color: black; 
     display: inline-block;
     white-space: nowrap;
@@ -59,6 +59,6 @@
 
   @media (max-width: 768px) {
     .typewriter-text {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
   }

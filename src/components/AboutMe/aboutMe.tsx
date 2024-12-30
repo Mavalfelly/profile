@@ -16,9 +16,9 @@ const AbMe = () => {
       </div>
       <div className="flex flex-col">
         {/* Typewriter */}
-        <div className="mb-6 text-lg md:text-xl font-semibold text-gray-800">
+        <div className="mb-6 text-md md:text-xl font-semibold text-gray-800">
           <Typer
-            phrases={["About Matt", "Forever learning", "Forever evolving"]}
+            phrases={["About Matt", "Always learning", "Always evolving"]}
             speed={100}
             deleteSpeed={50}
             displayTime={2500}
