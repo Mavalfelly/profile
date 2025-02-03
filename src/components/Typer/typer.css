@@ -5,6 +5,8 @@
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
+    font-weight: 600;  
+    line-height: 1.2;
   }
   
   .cursor {
@@ -12,7 +14,8 @@
     width: 10px;
     background-color: black;
     margin-left: 5px;
-    animation: blink 0.8s infinite;
+    font-weight: 300;
+    animation: blink 1s step-end infinite;
   }
   
   @keyframes blink {
@@ -33,13 +36,6 @@
     padding: 0 0.5rem;
   }
   
-  .typewriter-text {
-    font-size: 2rem;
-    font-weight: 600; 
-    color: #1a202c; 
-    line-height: 1.2;
-    white-space: nowrap;
-  }
   
   .cursor {
     font-weight: 300;

@@ -6,11 +6,6 @@
   
   .objectives-card:hover {
     transform: scale(1.05);
-    /* Increased shadow size and opacity for a more pronounced effect */
     box-shadow: 0 8px 30px rgba(144, 184, 80, 0.6), 0 0 20px rgba(144, 184, 80, 0.4);
   }
   
-  /* Optional: Add a smooth transition for the card when not hovering */
-  .objectives-card {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
