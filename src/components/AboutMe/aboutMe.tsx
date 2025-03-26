@@ -29,8 +29,7 @@ const AbMe = () => {
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-3 md:mb-4">Professional Summary</h2>
           <p className="text-gray-800 text-lg leading-relaxed">
-             I am a software engineer with strong expertise in JavaScript, Node.js, Express.js, PostgreSQL, SQL, Python, Django, and Java. I have extensive experience in front-end technologies, including React.js, HTML5, and CSS3, and utilize AutoHotkey scripting for workflow automation. With a focus on building impactful, tech-driven solutions, I thrive in dynamic environments, leveraging my technical skills to contribute to innovative projects and deliver results.
-          </p>
+            I am a software engineer with a strong foundation in full-stack development with a specialization in DevOps and infrastructure. With expertise in JavaScript, React, Node.js, Python, and Java, I have built scalable applications using MongoDB, SQL, and TailwindCSS. My transition into DevOps has expanded my skill set to include Kubernetes, Azure DevOps, Docker, Terraform, Spacelift, and AWS, where I focus on automating deployments, optimizing cloud infrastructure, and enhancing CI/CD pipelines. Leveraging tools like Argo and GitHub, I streamline development workflows to drive efficiency and reliability in tech-driven environments.</p>
         </div>
         <a
             href="/MatthewFeliciano.pdf" 

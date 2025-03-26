@@ -27,16 +27,16 @@ const projects = [
     liveSite: "https://todo-front-vgl6.onrender.com/",
   },
   {
-    title: "MineSweeper",
+    title: "College Tax and Retirement Stratagies",
     photos: [
-      "/minesweeper/game1 with flags.png",
-      "/minesweeper/game2 lose.png",
-      "/minesweeper/start.png",
-      "/minesweeper/Win.png",
+      "/ctrs/landing.png",
+      "/ctrs/drop.png",
+      "/ctrs/res.png",
+      "/ctrs/cont.png",
     ],
-    description: "I developed a Minesweeper game in Java using a JFrame structure to create an interactive and visually engaging user interface. The game includes a difficulty selection screen, allowing players to customize their experience, and features dynamic mine placement and logic for revealing tiles. It delivers a classic Minesweeper experience with responsive gameplay and clean design.",
-    github: "https://github.com/Mavalfelly/MineSweeper",
-    liveSite: "https://github.com/Mavalfelly/MineSweeper",
+    description: "CTRS.tax is a professional website I built for a local tax firm, designed to streamline client interactions and provide essential tax-related services. The site features a clean, user-friendly interface, ensuring easy navigation for clients seeking tax assistance. With a focus on performance and security, I integrated modern web technologies to deliver a seamless and efficient experience.",
+    github: "https://github.com/Mavalfelly/CTRS_live",
+    liveSite: "ctrs.tax",
   },
 ];
 
