@@ -8,6 +8,7 @@ import AbMe from './components/AboutMe/aboutMe'
 import TechScroller from './components/TechStack/tech'
 import ProjectShowcase from './components/Projects/projects'
 import ObjectivesSection from './components/Objectives/Objectives'
+import CareerHistory from './components/Career History/history'
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
       </section>
       <section className="py-4 relative z-10">
         <TechScroller /> 
+      </section>
+      <section>
+        <CareerHistory/>
       </section>
       <section>
       <ProjectShowcase />

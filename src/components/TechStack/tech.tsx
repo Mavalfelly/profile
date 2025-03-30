@@ -5,7 +5,6 @@ const TechScroller = () => {
     "JavaScript",
     "React",
     "Node.js",
-    "MongoDB",
     "SQL",
     "TailwindCSS",
     "Kubernetes",
@@ -17,7 +16,9 @@ const TechScroller = () => {
     "Terraform",
     "Spacelift",
     "AWS",
-    "Java"
+    "Java",
+    "Spring Boot",
+    "Power Automate",
   ];
   const techList = [...technologies, ...technologies, ...technologies];
 
