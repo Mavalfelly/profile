@@ -4,7 +4,7 @@ const AbMe = () => {
   return (
     <div
       id="about_me"
-      className="max-w-lg mx-auto bg-white rounded-lg shadow-xl shadow-[rgba(144,184,80,0.5)] text-center p-6 overflow-hidden mb-6"
+      className="max-w-2xl mx-auto bg-white rounded-lg shadow-xl shadow-[rgba(144,184,80,0.5)] text-center p-6 overflow-hidden mt-6 mb-6"
     >
       {/* Headshot */}
       <div className="flex justify-center mb-4">
