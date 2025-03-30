@@ -5,12 +5,12 @@ const ObjectivesSection = () => {
     {
       icon: "🚀",
       title: "Technical Excellence",
-      description: "Master full-stack development practices and stay current with modern frameworks and tools, while building a strong foundation in computer science fundamentals."
+      description: "Aim to become a proficient full-stack developer with a strong focus on cloud technologies, DevOps practices, and modern web development frameworks."
     },
     {
       icon: "🧠",
       title: "Continuous Learning",
-      description: "Develop expertise in cloud architecture and DevOps practices, while actively contributing to open-source projects to expand knowledge and give back to the community."
+      description: "Commit to lifelong learning and staying updated with the latest industry trends, tools, and technologies to enhance technical skills and knowledge."
     },
     {
       icon: "👥",
