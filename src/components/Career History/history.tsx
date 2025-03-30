@@ -2,7 +2,7 @@ const CareerHistory = () => {
     return (
       <div
         id="career_history"
-        className="max-w-lg mx-auto bg-white rounded-lg shadow-xl shadow-[rgba(144,184,80,0.5)] text-center p-6 overflow-hidden my-6"
+        className="max-w-2xl mx-auto bg-white rounded-lg shadow-xl shadow-[rgba(144,184,80,0.5)] text-center p-6 overflow-hidden mb-8 mt-4"
       >
         {/* Title */}
         <h2 className="text-xl font-bold text-gray-800 mb-3">Professional Experience</h2>
@@ -20,7 +20,7 @@ const CareerHistory = () => {
         }, {
           company: "General Assembly",
           role: "Software Development Trainee",
-          period: "05/2024 - Present",
+          period: "05/2024 - 01/2025",
           responsibilities: [
             "Developed projects using React, Node.js, Express, Python, Django, PostgreSQL, and MongoDB.",
             "Built RESTful APIs and integrated front-end and back-end systems.",
