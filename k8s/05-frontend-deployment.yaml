@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-frontend
+  namespace: portfolio
+  labels:
+    app: portfolio-frontend
+spec:
+  replicas: 2 # Frontend is stateless, so we can have multiple replicas
+  selector:
+    matchLabels:
+      app: portfolio-frontend
+  template:
+    metadata:
+      labels:
+        app: portfolio-frontend
+    spec:
+      containers:
+      - name: frontend
+        # IMPORTANT: Replace with your own image path
+        image: your-dockerhub-username/portfolio-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10

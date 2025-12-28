@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: analytics-data-pvc
+  namespace: portfolio
+spec:
+  accessModes:
+    - ReadWriteOnce # This is sufficient as we'll have one writer (the backend)
+  resources:
+    requests:
+      storage: 1Gi # 1GB should be more than enough for the JSON file

@@ -1,7 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import cron from 'node-cron';
-import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,35 +17,37 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-const ANALYTICS_FILE = path.join(__dirname, 'analytics-data.json');
+const getAnalyticsFile = () => process.env.ANALYTICS_FILE_OVERRIDE || path.join(__dirname, 'analytics-data.json');
 
 // Initialize analytics data structure
 const initAnalyticsData = () => {
-  if (!fs.existsSync(ANALYTICS_FILE)) {
-    const initialData = {
-      daily: {
-        date: new Date().toISOString().split('T')[0],
-        pageViews: 0,
-        uniqueVisitors: new Set(),
-        formSubmissions: { success: 0, failed: 0 },
-        downloads: 0,
-        projectViews: {},
-        events: []
-      },
-      allTime: {
-        totalPageViews: 0,
-        totalVisitors: 0,
-        totalFormSubmissions: 0,
-        totalDownloads: 0
-      }
-    };
-    fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(initialData, null, 2));
-  }
+    const analyticsFile = getAnalyticsFile();
+    if (!fs.existsSync(analyticsFile)) {
+        const initialData = {
+            daily: {
+                date: new Date().toISOString().split('T')[0],
+                pageViews: 0,
+                uniqueVisitors: new Set(),
+                formSubmissions: { success: 0, failed: 0 },
+                downloads: 0,
+                projectViews: {},
+                events: []
+            },
+            allTime: {
+                totalPageViews: 0,
+                totalVisitors: 0,
+                totalFormSubmissions: 0,
+                totalDownloads: 0
+            }
+        };
+        fs.writeFileSync(analyticsFile, JSON.stringify(initialData, null, 2));
+    }
 };
 
 // Load analytics data
 const loadAnalytics = () => {
-  const data = JSON.parse(fs.readFileSync(ANALYTICS_FILE, 'utf-8'));
+  const analyticsFile = getAnalyticsFile();
+  const data = JSON.parse(fs.readFileSync(analyticsFile, 'utf-8'));
   // Convert uniqueVisitors array back to Set
   if (Array.isArray(data.daily.uniqueVisitors)) {
     data.daily.uniqueVisitors = new Set(data.daily.uniqueVisitors);
@@ -59,47 +59,25 @@ const loadAnalytics = () => {
 
 // Save analytics data
 const saveAnalytics = (data) => {
+  const analyticsFile = getAnalyticsFile();
   // Convert Set to array for JSON serialization (create deep copy to avoid mutation)
   const dataToSave = {
     ...data,
     daily: {
       ...data.daily,
-      uniqueVisitors: data.daily.uniqueVisitors instanceof Set 
+      uniqueVisitors: data.daily.uniqueVisitors instanceof Set
         ? Array.from(data.daily.uniqueVisitors)
         : data.daily.uniqueVisitors
     }
   };
-  fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(dataToSave, null, 2));
+  fs.writeFileSync(analyticsFile, JSON.stringify(dataToSave, null, 2));
 };
-
-// Reset daily stats
-const resetDailyStats = () => {
-  const analytics = loadAnalytics();
-  analytics.daily = {
-    date: new Date().toISOString().split('T')[0],
-    pageViews: 0,
-    uniqueVisitors: new Set(),
-    formSubmissions: { success: 0, failed: 0 },
-    downloads: 0,
-    projectViews: {},
-    events: []
-  };
-  saveAnalytics(analytics);
-};
-
-// Check if we need to reset (new day)
-const checkAndResetIfNewDay = () => {
-  const analytics = loadAnalytics();
-  const today = new Date().toISOString().split('T')[0];
-  if (analytics.daily.date !== today) {
-    resetDailyStats();
-  }
-};
+// The cron job is now responsible for resetting stats.
+// This server just logs to the current day file.
 
 // Track page view
 app.post('/api/track/pageview', (req, res) => {
   try {
-    checkAndResetIfNewDay();
     const { page, visitorId } = req.body;
     const analytics = loadAnalytics();
     
@@ -128,7 +106,6 @@ app.post('/api/track/pageview', (req, res) => {
 // Track form submission
 app.post('/api/track/form', (req, res) => {
   try {
-    checkAndResetIfNewDay();
     const { formName, success } = req.body;
     const analytics = loadAnalytics();
     
@@ -157,7 +134,6 @@ app.post('/api/track/form', (req, res) => {
 // Track download
 app.post('/api/track/download', (req, res) => {
   try {
-    checkAndResetIfNewDay();
     const { fileName } = req.body;
     const analytics = loadAnalytics();
     
@@ -181,7 +157,6 @@ app.post('/api/track/download', (req, res) => {
 // Track project view
 app.post('/api/track/project', (req, res) => {
   try {
-    checkAndResetIfNewDay();
     const { projectName } = req.body;
     const analytics = loadAnalytics();
     
@@ -221,99 +196,13 @@ app.get('/api/stats', (req, res) => {
   }
 });
 
-// Send daily email report
-const sendDailyReport = async () => {
-  try {
-    const analytics = loadAnalytics();
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split('T')[0];
-    const todayStr = new Date().toISOString().split('T')[0];
-    
-    // Send yesterday's data, or today's if yesterday has no data (for testing)
-    const isYesterdayData = analytics.daily.date === yesterdayStr;
-    const isTodayData = analytics.daily.date === todayStr;
-    
-    if (!isYesterdayData && !isTodayData) {
-      console.log('No data to send for yesterday or today');
-      return;
-    }
-    
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS // Use App Password for Gmail
-      }
-    });
-    
-    const projectViewsText = Object.entries(analytics.daily.projectViews)
-      .map(([name, count]) => `  - ${name}: ${count} views`)
-      .join('\n') || '  None';
-    
-    const emailContent = `
-DAILY PORTFOLIO ANALYTICS REPORT${isTodayData ? ' (Test - Today\'s Data)' : ''}
-Date: ${analytics.daily.date}
-
-VISITORS:
-  - Total Page Views: ${analytics.daily.pageViews}
-  - Unique Visitors: ${analytics.daily.uniqueVisitors.size}
-
-FORM SUBMISSIONS:
-  - Successful: ${analytics.daily.formSubmissions.success}
-  - Failed: ${analytics.daily.formSubmissions.failed}
-
-DOWNLOADS:
-  - Resume Downloads: ${analytics.daily.downloads}
-
-PROJECT VIEWS:
-${projectViewsText}
-
-ALL-TIME STATS:
-  - Total Page Views: ${analytics.allTime.totalPageViews}
-  - Total Visitors: ${analytics.allTime.totalVisitors}
-  - Total Form Submissions: ${analytics.allTime.totalFormSubmissions}
-  - Total Downloads: ${analytics.allTime.totalDownloads}
-
----
-This report was automatically generated from your portfolio analytics.
-    `;
-    
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
-      subject: `Portfolio Analytics Report - ${analytics.daily.date}`,
-      text: emailContent
-    });
-    
-    console.log('Daily report sent successfully');
-    
-    // Reset for new day after sending
-    resetDailyStats();
-  } catch (error) {
-    console.error('Error sending daily report:', error);
-  }
-};
-
-// Schedule daily email
-// Production: '59 23 * * *' (11:59 PM daily)
-// Testing: '* * * * *' (every minute)
-cron.schedule('* * * * *', () => {
-  console.log('Running daily analytics report...');
-  sendDailyReport();
-});
-
 // Health check endpoint for Render
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
-// Manual trigger endpoint for testing
-
-
 // Initialize and start server
 initAnalyticsData();
 app.listen(PORT, () => {
   console.log(`Analytics server running on port ${PORT}`);
-  console.log(`Scheduled daily report at 11:59 PM`);
 });
