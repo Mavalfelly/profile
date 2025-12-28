@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { trackFormSubmission } from '../../utils/analytics';
+import { getEnv } from '../../utils/env';
 
 interface FormErrors {
   from_name?: string;
@@ -22,11 +23,12 @@ export const ContactUs: React.FC = () => {
         if (value.trim().length < 2) return 'Name must be at least 2 characters';
         if (value.trim().length > 50) return 'Name must be less than 50 characters';
         return undefined;
-      case 'user_email':
+      case 'user_email': {
         if (!value.trim()) return 'Email is required';
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) return 'Please enter a valid email address';
         return undefined;
+      }
       case 'message':
         if (!value.trim()) return 'Message is required';
         if (value.trim().length < 10) return 'Message must be at least 10 characters';
@@ -80,9 +82,9 @@ export const ContactUs: React.FC = () => {
 
     if (!form.current) return;
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const serviceId = getEnv('VITE_EMAILJS_SERVICE_ID');
+    const templateId = getEnv('VITE_EMAILJS_TEMPLATE_ID');
+    const publicKey = getEnv('VITE_EMAILJS_PUBLIC_KEY');
 
     if (!serviceId || !templateId || !publicKey) {
       console.error('EmailJS configuration missing. Please check your environment variables.');

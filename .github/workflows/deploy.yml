@@ -1,0 +1,114 @@
+name: Build, Test, and Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+      - portfolio-enhancement
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Run frontend tests
+        run: npm run test:ci
+        env:
+          CI: true
+
+      - name: Install server dependencies
+        run: cd server && npm ci
+
+      - name: Run server tests
+        run: cd server && npm test
+        env:
+          CI: true
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+      - name: Upload frontend coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-coverage
+          path: coverage/
+          retention-days: 7
+
+      - name: Upload server coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: server-coverage
+          path: server/coverage/
+          retention-days: 7
+
+  deploy-to-render:
+    name: Deploy to Render
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/portfolio-enhancement')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Trigger Render Deployment
+        env:
+          RENDER_DEPLOY_HOOK_ANALYTICS: ${{ secrets.RENDER_DEPLOY_HOOK_ANALYTICS }}
+          RENDER_DEPLOY_HOOK_FRONTEND: ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
+        run: |
+          echo "Deploying Analytics Server..."
+          if [ -n "$RENDER_DEPLOY_HOOK_ANALYTICS" ]; then
+            curl -X POST "$RENDER_DEPLOY_HOOK_ANALYTICS"
+            echo "Analytics server deployment triggered"
+          else
+            echo "Warning: RENDER_DEPLOY_HOOK_ANALYTICS not set"
+          fi
+          
+          echo "Waiting 10 seconds before frontend deployment..."
+          sleep 10
+          
+          echo "Deploying Frontend..."
+          if [ -n "$RENDER_DEPLOY_HOOK_FRONTEND" ]; then
+            curl -X POST "$RENDER_DEPLOY_HOOK_FRONTEND"
+            echo "Frontend deployment triggered"
+          else
+            echo "Warning: RENDER_DEPLOY_HOOK_FRONTEND not set"
+          fi
+
+      - name: Deployment Summary
+        run: |
+          echo "### Deployment Status :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Analytics Server: Triggered" >> $GITHUB_STEP_SUMMARY
+          echo "- Frontend: Triggered" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check Render dashboard for deployment progress." >> $GITHUB_STEP_SUMMARY

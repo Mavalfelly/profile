@@ -30,15 +30,50 @@ Edit `.env` with your email settings:
 
 ```env
 EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-gmail-app-password
+EMAIL_PASS=your-email-password-or-app-password
 NOTIFICATION_EMAIL=where-to-send-reports@gmail.com
 PORT=3001
 ```
 
-**Important for Gmail users:**
-- Don't use your regular Gmail password
-- Generate an App Password: https://myaccount.google.com/apppasswords
-- Enable 2FA on your Google account first
+**Email Setup Options:**
+
+**Option 1: Gmail with App Password (Recommended)**
+1. Enable 2-Step Verification on your Google Account
+2. Go to https://myaccount.google.com/apppasswords
+3. Generate an App Password for "Mail"
+4. Use the 16-character password in `EMAIL_PASS`
+
+**Option 2: Gmail with "Less Secure Apps" (Not Recommended)**
+- If App Passwords aren't available, enable "Less secure app access"
+- Not recommended for security reasons
+- May not work with newer Google accounts
+
+**Option 3: Use Alternative Email Provider**
+- **Outlook/Hotmail**: Works with regular password
+- **SendGrid**: Free tier available, more reliable for production
+- **Mailgun**: Free tier available
+- **AWS SES**: Pay-as-you-go pricing
+
+For Outlook.com/Hotmail:
+```env
+EMAIL_USER=your-email@outlook.com
+EMAIL_PASS=your-regular-password
+```
+
+For SendGrid (recommended for production):
+```env
+EMAIL_USER=apikey
+EMAIL_PASS=your-sendgrid-api-key
+```
+
+Update `analytics-server.js` service configuration for SendGrid:
+```javascript
+service: 'SendGrid',
+auth: {
+  user: 'apikey',
+  pass: process.env.EMAIL_PASS
+}
+```
 
 ### 3. Run the Server
 
@@ -186,16 +221,25 @@ Uncomment SMS code in `analytics-server.js` (see TODO comments).
 
 ## Troubleshooting
 
+**App Passwords not available:**
+- Enable 2-Step Verification first
+- Try using an Outlook.com email instead
+- Consider using SendGrid for production (free tier available)
+- Check if your account is a Google Workspace account with restrictions
+
 **Email not sending:**
-- Verify Gmail App Password is correct
-- Check that 2FA is enabled on Google account
-- Try with a different email provider if Gmail doesn't work
+- Verify email credentials are correct
+- Try a different email provider (Outlook, SendGrid)
+- Check server logs for specific error messages
+- Test with `curl -X POST http://localhost:3001/api/send-report`
 
 **CORS errors:**
 - Ensure frontend `.env` has correct `VITE_ANALYTICS_API` URL
 - Check that server is running on correct port
+- Verify CORS is enabled in server code
 
 **Daily report not triggering:**
-- Server must be running continuously
+- Server must be running continuously (use Render or similar)
 - Check server logs for cron execution
 - Test manually with `/api/send-report` endpoint
+- Verify timezone settings for cron schedule

@@ -47,18 +47,22 @@ const loadAnalytics = () => {
   // Convert uniqueVisitors array back to Set
   if (Array.isArray(data.daily.uniqueVisitors)) {
     data.daily.uniqueVisitors = new Set(data.daily.uniqueVisitors);
+  } else if (!data.daily.uniqueVisitors) {
+    data.daily.uniqueVisitors = new Set();
   }
   return data;
 };
 
 // Save analytics data
 const saveAnalytics = (data) => {
-  // Convert Set to array for JSON serialization
+  // Convert Set to array for JSON serialization (create deep copy to avoid mutation)
   const dataToSave = {
     ...data,
     daily: {
       ...data.daily,
-      uniqueVisitors: Array.from(data.daily.uniqueVisitors)
+      uniqueVisitors: data.daily.uniqueVisitors instanceof Set 
+        ? Array.from(data.daily.uniqueVisitors)
+        : data.daily.uniqueVisitors
     }
   };
   fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(dataToSave, null, 2));
@@ -220,10 +224,14 @@ const sendDailyReport = async () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayStr = yesterday.toISOString().split('T')[0];
+    const todayStr = new Date().toISOString().split('T')[0];
     
-    // Only send if we have data from yesterday
-    if (analytics.daily.date !== yesterdayStr) {
-      console.log('No data to send for yesterday');
+    // Send yesterday's data, or today's if yesterday has no data (for testing)
+    const isYesterdayData = analytics.daily.date === yesterdayStr;
+    const isTodayData = analytics.daily.date === todayStr;
+    
+    if (!isYesterdayData && !isTodayData) {
+      console.log('No data to send for yesterday or today');
       return;
     }
     
@@ -240,7 +248,7 @@ const sendDailyReport = async () => {
       .join('\n') || '  None';
     
     const emailContent = `
-DAILY PORTFOLIO ANALYTICS REPORT
+DAILY PORTFOLIO ANALYTICS REPORT${isTodayData ? ' (Test - Today\'s Data)' : ''}
 Date: ${analytics.daily.date}
 
 VISITORS:
@@ -283,21 +291,21 @@ This report was automatically generated from your portfolio analytics.
   }
 };
 
-// Schedule daily email at 11:59 PM
-cron.schedule('59 23 * * *', () => {
+// Schedule daily email
+// Production: '59 23 * * *' (11:59 PM daily)
+// Testing: '* * * * *' (every minute)
+cron.schedule('* * * * *', () => {
   console.log('Running daily analytics report...');
   sendDailyReport();
 });
 
-// Manual trigger endpoint for testing
-app.post('/api/send-report', async (req, res) => {
-  try {
-    await sendDailyReport();
-    res.json({ success: true, message: 'Report sent successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to send report' });
-  }
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
+
+// Manual trigger endpoint for testing
+
 
 // Initialize and start server
 initAnalyticsData();

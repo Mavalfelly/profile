@@ -1,4 +1,6 @@
-const ANALYTICS_API = import.meta.env.VITE_ANALYTICS_API || 'http://localhost:3001/api';
+import { getEnv } from './env';
+
+const ANALYTICS_API = getEnv('VITE_ANALYTICS_API', 'http://localhost:3001/api');
 
 // Generate or retrieve visitor ID
 const getVisitorId = (): string => {
