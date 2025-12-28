@@ -18,7 +18,7 @@ spec:
       containers:
       - name: backend
         # IMPORTANT: Replace with your own image path
-        image: your-dockerhub-username/portfolio-backend:latest
+        image: mavalfelly25/portfolio-backend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3001

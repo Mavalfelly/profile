@@ -14,7 +14,7 @@ spec:
           containers:
           - name: reporter
             # IMPORTANT: Replace with your own image path
-            image: your-dockerhub-username/portfolio-backend:latest
+            image: mavalfelly25/portfolio-backend:latest
             imagePullPolicy: Always
             command: ["node", "run-send-report.js"]
             envFrom:

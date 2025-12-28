@@ -14,7 +14,7 @@ This directory contains the files needed to deploy the portfolio application to 
     kubectl get nodes
     ```
 3.  **Docker**: Docker installed on your local machine to build and push the container images.
-4.  **Docker Hub Account** (or other container registry): You will need a place to push your container images so that your k3s cluster can pull them.
+4.  **Container Registry**: You will need a place to push your container images so that your k3s cluster can pull them. This guide assumes Docker Hub.
 
 ## Structure
 
@@ -33,28 +33,28 @@ This directory contains the files needed to deploy the portfolio application to 
 
 ### 1. Build and Push the Docker Images
 
-Before you can deploy to Kubernetes, you need to build the Docker images for the frontend and backend and push them to a container registry (e.g., Docker Hub).
+Before you can deploy to Kubernetes, you need to build the Docker images for the frontend and backend and push them to your container registry.
 
-**Important**: Remember to replace `your-dockerhub-username` with your actual Docker Hub username in the commands below.
+**Important**: Use your Docker Hub username `mavalfelly25` and your domain `matt-feliciano.com`.
 
 ```bash
 # Navigate to the root of the project
 cd /path/to/your/project
 
 # Build and push the frontend image
-docker build -t your-dockerhub-username/portfolio-frontend:latest .
-docker push your-dockerhub-username/portfolio-frontend:latest
+docker build -t mavalfelly25/portfolio-frontend:latest .
+docker push mavalfelly25/portfolio-frontend:latest
 
 # Build and push the backend image
-docker build -t your-dockerhub-username/portfolio-backend:latest -f server/Dockerfile .
-docker push your-dockerhub-username/portfolio-backend:latest
+docker build -t mavalfelly25/portfolio-backend:latest -f server/Dockerfile .
+docker push mavalfelly25/portfolio-backend:latest
 ```
 
 ### 2. Update the Kubernetes Manifests
 
-You need to update `03-backend-deployment.yaml`, `05-frontend-deployment.yaml`, and `08-cronjob.yaml` to use the image you just pushed. Look for the `image:` field in these files and change it to `your-dockerhub-username/portfolio-backend:latest` or `your-dockerhub-username/portfolio-frontend:latest`.
+The Docker image references in `k8s/03-backend-deployment.yaml`, `k8s/05-frontend-deployment.yaml`, and `k8s/08-cronjob.yaml` have been updated to use `mavalfelly25`.
 
-You will also need to update `07-ingress.yaml` to use your domain name.
+You will also need to update `k8s/07-ingress.yaml` with your actual domain name. Replace `matt-feliciano.com` with your domain.
 
 ### 3. Create the Secret
 
@@ -81,10 +81,12 @@ kubectl apply -f k8s/
 
 ### 5. Configure DNS
 
-1.  Find the public IP address of your k3s server.
-2.  In your DNS provider (e.g., Namecheap), create an `A` record for your domain (or a subdomain like `k3s.yourdomain.com`) and point it to the IP address of your k3s server.
+1.  **Find your k3s Ingress Controller\'s External IP**: You need to determine the external IP address that your k3s Ingress controller is exposed on. The method for this depends on your k3s setup (e.g., if it\'s running on a cloud provider, you might need to check your load balancer\'s IP). For a simple local setup, it might be the IP of your k3s server itself.
+2.  **Configure DNS**: In your DNS provider (e.g., Namecheap), you will typically set up a DNS record for your domain `matt-feliciano.com`.
+    *   **CNAME Record (Recommended for flexibility)**: Create a CNAME record for `matt-feliciano.com` (or a subdomain like `www.matt-feliciano.com`) and point it to the hostname or IP address provided by your k3s ingress controller. If your ingress controller has an external IP, you might create an A record pointing to that IP. However, if your ingress controller provides a stable hostname, using a CNAME pointing to that hostname is often preferred.
+    *   **A Record**: If you have a static IP address for your k3s server or ingress, you can create an A record for `matt-feliciano.com` pointing directly to that IP address.
 
-After a few minutes, you should be able to access your application at the domain you configured.
+After you have configured your DNS records, it may take some time for the changes to propagate. You should then be able to access your application at `matt-feliciano.com`.
 
 ## Managing the Deployment
 

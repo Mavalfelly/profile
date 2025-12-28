@@ -18,7 +18,7 @@ spec:
       containers:
       - name: frontend
         # IMPORTANT: Replace with your own image path
-        image: your-dockerhub-username/portfolio-frontend:latest
+        image: mavalfelly25/portfolio-frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
