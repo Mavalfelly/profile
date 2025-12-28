@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './index.css'
 import BackgroundVideo from './components/Back'
 import Land from './components/Landing Page/land'
@@ -11,12 +12,21 @@ import ObjectivesSection from './components/Objectives/Objectives'
 import CareerHistory from './components/Career History/history'
 
 function App() {
+  useEffect(() => {
+    // Set document title
+    document.title = 'Matthew Feliciano | Software Engineer & DevOps Specialist';
+    
+    // Set meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Matthew Feliciano - Software Engineer specializing in DevOps, Cloud Infrastructure, and Full-Stack Development. Expert in Kubernetes, Docker, AWS, Azure, React, and Python.');
+    }
+  }, []);
+
   return (
     <>
-      <header className="relative z-10 bg-custom-bg">
-        <Nav />
-      </header>
-      <section className="landing-section relative h-screen">
+      <Nav />
+      <section className="landing-section relative min-h-screen">
         <BackgroundVideo />
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <Land />
@@ -28,11 +38,11 @@ function App() {
       <section className="py-4 relative z-10">
         <TechScroller /> 
       </section>
-      <section>
+      <section className='bg-custom-bg'>
         <CareerHistory/>
       </section>
       <section>
-      <ProjectShowcase />
+        <ProjectShowcase />
       </section>
       <section>
         <ObjectivesSection/>
