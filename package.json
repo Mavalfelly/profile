@@ -8,10 +8,10 @@
     "build": "rimraf dist && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --config config/jest.config.js",
-    "test:watch": "jest --config config/jest.config.js --watch",
-    "test:coverage": "jest --config config/jest.config.js --coverage",
-    "test:ci": "jest --config config/jest.config.js --ci --coverage --maxWorkers=2"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --maxWorkers=2"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
