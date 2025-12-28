@@ -1,5 +1,6 @@
 import Typer from "../Typer/typer";
 import { Code2, Cloud, Briefcase, Award } from "lucide-react";
+import AnimatedSection from '../AnimatedSection/AnimatedSection';
 
 const AbMe = () => {
   const skills = [
@@ -21,6 +22,7 @@ const AbMe = () => {
   return (
     <div id="about_me" className="max-w-6xl mx-auto px-4 py-16">
       <div className="grid md:grid-cols-2 gap-8">
+        <AnimatedSection animation="fade-right">
         <div className="bg-white rounded-xl shadow-2xl p-8">
           <div className="flex flex-col items-center mb-6">
             <img
@@ -55,7 +57,9 @@ const AbMe = () => {
             })}
           </div>
         </div>
+        </AnimatedSection>
 
+        <AnimatedSection animation="fade-left" delay={0.2}>
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-2xl p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">About Me</h3>
@@ -90,6 +94,7 @@ const AbMe = () => {
             </div>
           </div>
         </div>
+        </AnimatedSection>
       </div>
     </div>
   );

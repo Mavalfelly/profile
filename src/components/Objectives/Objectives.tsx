@@ -1,5 +1,6 @@
 import './obj.css';
 import { Rocket, Brain, Users, Zap, RefreshCw, Shield } from 'lucide-react';
+import AnimatedSection from '../AnimatedSection/AnimatedSection';
 
 const ObjectivesSection = () => {
   const objectives = [
@@ -37,6 +38,7 @@ const ObjectivesSection = () => {
 
   return (
     <div className="w-full bg-custom-bg py-16 px-4" id='obj'>
+      <AnimatedSection animation="fade-up">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-cust-green mb-12">
           Career Objectives
@@ -65,6 +67,7 @@ const ObjectivesSection = () => {
           })}
         </div>
       </div>
+      </AnimatedSection>
     </div>
   );
 };

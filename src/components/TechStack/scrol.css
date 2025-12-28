@@ -14,6 +14,7 @@
     overflow: hidden;
     display: flex;
     justify-content: flex-start;
+    padding: 20px 0;
   }
   
   .tech-scroller {
@@ -21,17 +22,47 @@
     animation: marquee 60s linear infinite;
     will-change: transform;
     backface-visibility: hidden;
+    gap: 16px;
   }
   
   .tech-item {
-    padding: 8px 16px;
-    text-align: center;
-    background-color: #2d3748;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: default;
+    min-width: 120px;
+  }
+
+  .tech-item:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-color: rgba(132, 204, 22, 0.5);
+    box-shadow: 0 8px 24px rgba(132, 204, 22, 0.2);
+  }
+
+  .tech-icon {
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .tech-item:hover .tech-icon {
+    transform: scale(1.15);
+    filter: drop-shadow(0 4px 8px currentColor);
+  }
+
+  .tech-name {
     color: white;
-    margin: 0 12px;
-    border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
     white-space: nowrap;
+    text-align: center;
   }
   
   .tech-scroller-container::before,
@@ -40,16 +71,17 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 50px;
+    width: 100px;
     z-index: 10;
+    pointer-events: none;
   }
   
   .tech-scroller-container::before {
     left: 0;
-    background: linear-gradient(to right, rgba(144, 184, 80), rgba(255, 255, 255, 0));
+    background: linear-gradient(to right, rgba(7,11,21,255), rgba(7,11,21,0));
   }
   
   .tech-scroller-container::after {
     right: 0;
-    background: linear-gradient(to left, rgba(144, 184, 80), rgba(255, 255, 255, 0));
+    background: linear-gradient(to left, rgba(7,11,21,255), rgba(7,11,21,0));
   }

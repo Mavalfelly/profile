@@ -1,4 +1,6 @@
 import { Briefcase, Calendar, Download } from "lucide-react";
+import AnimatedSection from '../AnimatedSection/AnimatedSection';
+import { trackDownload } from '../../utils/analytics';
 
 const CareerHistory = () => {
   const experiences = [
@@ -46,6 +48,7 @@ const CareerHistory = () => {
 
   return (
     <div id="career_history" className="max-w-6xl mx-auto px-4 py-16">
+      <AnimatedSection animation="fade-up">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-cust-green mb-4">Professional Experience</h2>
         <p className="text-gray-400">My journey through the tech industry</p>
@@ -99,17 +102,21 @@ const CareerHistory = () => {
           ))}
         </div>
       </div>
+      </AnimatedSection>
 
+      <AnimatedSection animation="fade-up" delay={0.3}>
       <div className="text-center mt-12">
         <a
           href="/MatthewFeliciano.pdf"
           download="Matt_Feliciano_Resume.pdf"
+          onClick={() => trackDownload('Matt_Feliciano_Resume.pdf')}
           className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-lime-500 to-green-500 text-black font-semibold rounded-lg hover:shadow-lg hover:shadow-lime-500/50 transition-all duration-300 hover:scale-105"
         >
           <Download className="w-5 h-5" />
           Download Resume
         </a>
       </div>
+      </AnimatedSection>
     </div>
   );
 };

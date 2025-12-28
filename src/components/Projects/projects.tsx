@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./projects.css";
 import { ExternalLink, Github, ChevronLeft, ChevronRight, X } from "lucide-react";
+import AnimatedSection from '../AnimatedSection/AnimatedSection';
 
 const projects = [
   {
@@ -88,12 +89,15 @@ const ProjectShowcase = () => {
 
   return (
     <>
+      <AnimatedSection animation="fade-up">
       <div className="w-full pt-24 pb-8 bg-custom-bg">
         <h2 className="text-5xl font-bold text-center text-cust-green mb-4">Featured Projects</h2>
         <p className="text-center text-gray-400 max-w-2xl mx-auto px-4">
           A showcase of my recent work in web development and software engineering
         </p>
       </div>
+      </AnimatedSection>
+      <AnimatedSection animation="scale" delay={0.2}>
       <div className="project-showcase" id="project-showcase">
         <div className="project-carousel">
           <button 
@@ -181,6 +185,7 @@ const ProjectShowcase = () => {
           </button>
         </div>
       </div>
+      </AnimatedSection>
 
       {modalOpen && (
         <div 
