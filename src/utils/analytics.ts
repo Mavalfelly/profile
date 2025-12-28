@@ -1,32 +1,52 @@
-export const trackPageView = (page: string) => {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'page_view', {
-      page_path: page,
+const ANALYTICS_API = import.meta.env.VITE_ANALYTICS_API || 'http://localhost:3001/api';
+
+// Generate or retrieve visitor ID
+const getVisitorId = (): string => {
+  let visitorId = localStorage.getItem('visitor_id');
+  if (!visitorId) {
+    visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('visitor_id', visitorId);
+  }
+  return visitorId;
+};
+
+// Generic tracking function
+const sendAnalytics = async (endpoint: string, data: any) => {
+  try {
+    await fetch(`${ANALYTICS_API}/track/${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
     });
+  } catch (error) {
+    console.error('Analytics tracking error:', error);
   }
 };
 
-export const trackEvent = (eventName: string, eventParams?: Record<string, any>) => {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', eventName, eventParams);
-  }
+export const trackPageView = (page: string) => {
+  sendAnalytics('pageview', {
+    page,
+    visitorId: getVisitorId(),
+  });
 };
 
 export const trackFormSubmission = (formName: string, success: boolean) => {
-  trackEvent('form_submission', {
-    form_name: formName,
-    success: success,
+  sendAnalytics('form', {
+    formName,
+    success,
   });
 };
 
 export const trackProjectView = (projectName: string) => {
-  trackEvent('project_view', {
-    project_name: projectName,
+  sendAnalytics('project', {
+    projectName,
   });
 };
 
 export const trackDownload = (fileName: string) => {
-  trackEvent('file_download', {
-    file_name: fileName,
+  sendAnalytics('download', {
+    fileName,
   });
 };

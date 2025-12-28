@@ -10,10 +10,13 @@ import TechScroller from './components/TechStack/tech'
 import ProjectShowcase from './components/Projects/projects'
 import ObjectivesSection from './components/Objectives/Objectives'
 import CareerHistory from './components/Career History/history'
+import { trackPageView } from './utils/analytics'
 
 function App() {
   useEffect(() => {
     document.title = 'Matthew Feliciano | DevOps Engineer & Cloud Infrastructure Specialist';
+    
+    trackPageView(window.location.pathname);
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {

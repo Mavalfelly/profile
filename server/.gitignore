@@ -1,0 +1,4 @@
+.env
+analytics-data.json
+node_modules/
+*.log
