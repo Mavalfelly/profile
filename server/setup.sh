@@ -1,42 +1,42 @@
 #!/bin/bash
 
-echo "🚀 Setting up Portfolio Analytics Server..."
+echo "Setting up Portfolio Analytics Server..."
 echo ""
 
 # Check if in server directory
 if [ ! -f "package.json" ]; then
-    echo "❌ Error: Run this script from the server directory"
+    echo "ERROR: Run this script from the server directory"
     echo "Usage: cd server && ./setup.sh"
     exit 1
 fi
 
 # Install dependencies
-echo "📦 Installing dependencies..."
+echo "Installing dependencies..."
 npm install
 
 # Create .env file if it doesn't exist
 if [ ! -f ".env" ]; then
     echo ""
-    echo "📝 Creating .env file..."
+    echo "Creating .env file..."
     cp .env.example .env
-    echo "✅ .env file created"
+    echo ".env file created"
     echo ""
-    echo "⚠️  IMPORTANT: Edit server/.env with your email credentials:"
+    echo "IMPORTANT: Edit server/.env with your email credentials:"
     echo "   - EMAIL_USER: Your Gmail address"
     echo "   - EMAIL_PASS: Gmail App Password (not regular password)"
     echo "   - NOTIFICATION_EMAIL: Where to receive reports"
     echo ""
-    echo "📖 Get Gmail App Password:"
+    echo "Get Gmail App Password:"
     echo "   1. Enable 2FA on your Google account"
     echo "   2. Visit: https://myaccount.google.com/apppasswords"
     echo "   3. Generate app password and paste in .env"
     echo ""
 else
-    echo "ℹ️  .env file already exists"
+    echo "INFO: .env file already exists"
 fi
 
 echo ""
-echo "✅ Setup complete!"
+echo "Setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Edit server/.env with your email credentials"

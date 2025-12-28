@@ -240,24 +240,24 @@ const sendDailyReport = async () => {
       .join('\n') || '  None';
     
     const emailContent = `
-📊 Daily Portfolio Analytics Report
+DAILY PORTFOLIO ANALYTICS REPORT
 Date: ${analytics.daily.date}
 
-👥 VISITORS:
+VISITORS:
   - Total Page Views: ${analytics.daily.pageViews}
   - Unique Visitors: ${analytics.daily.uniqueVisitors.size}
 
-📝 FORM SUBMISSIONS:
+FORM SUBMISSIONS:
   - Successful: ${analytics.daily.formSubmissions.success}
   - Failed: ${analytics.daily.formSubmissions.failed}
 
-📥 DOWNLOADS:
+DOWNLOADS:
   - Resume Downloads: ${analytics.daily.downloads}
 
-🎯 PROJECT VIEWS:
+PROJECT VIEWS:
 ${projectViewsText}
 
-📈 ALL-TIME STATS:
+ALL-TIME STATS:
   - Total Page Views: ${analytics.allTime.totalPageViews}
   - Total Visitors: ${analytics.allTime.totalVisitors}
   - Total Form Submissions: ${analytics.allTime.totalFormSubmissions}
@@ -270,7 +270,7 @@ This report was automatically generated from your portfolio analytics.
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
-      subject: `📊 Portfolio Analytics - ${analytics.daily.date}`,
+      subject: `Portfolio Analytics Report - ${analytics.daily.date}`,
       text: emailContent
     });
     

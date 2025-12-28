@@ -4,10 +4,10 @@ A lightweight Node.js server that tracks portfolio analytics and sends daily ema
 
 ## Features
 
-- 📊 Track page views, form submissions, downloads, and project views
-- 📧 Daily email reports sent automatically at 11:59 PM
-- 💾 Simple JSON file storage (no database required)
-- 🔒 CORS enabled for frontend integration
+- Track page views, form submissions, downloads, and project views
+- Daily email reports sent automatically at 11:59 PM
+- Simple JSON file storage (no database required)
+- CORS enabled for frontend integration
 
 ## Setup
 
