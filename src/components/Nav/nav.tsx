@@ -24,14 +24,12 @@ const Nav = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       scrolled ? 'bg-black/95 backdrop-blur-sm shadow-lg' : 'bg-black'
     }`}>
-      {/* Scroll Progress Bar */}
       <div 
         className="absolute top-0 left-0 h-1 bg-gradient-to-r from-lime-500 to-green-500 transition-all duration-300"
         style={{ width: `${scrollProgress}%` }}
       />
       
       <div className="flex flex-col md:flex-row justify-between items-center text-white p-4 max-w-7xl mx-auto">
-        {/* Logo */}
         <div className="flex justify-between items-center w-full md:w-auto">
           <a
             href="#landing-page"
@@ -39,7 +37,6 @@ const Nav = () => {
           >
             MJF
           </a>
-          {/* Mobile Menu Button */}
           <button 
             className="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -49,7 +46,6 @@ const Nav = () => {
           </button>
         </div>
 
-        {/* Navigation Links */}
         <div className={`${
           isMenuOpen ? 'flex' : 'hidden'
         } md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 mt-4 md:mt-0 w-full md:w-auto`}>

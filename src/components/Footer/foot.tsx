@@ -12,13 +12,11 @@ const Footer = () => {
     <footer className="flex flex-col justify-center items-center bg-black text-white py-12 bottom-0 w-full px-4 border-t border-gray-800">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
-          {/* Brand */}
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold mb-2">Matthew Feliciano</h3>
             <p className="text-gray-400">Building the future, one line at a time.</p>
           </div>
           
-          {/* Social Links */}
           <div className="flex gap-6">
             <a 
               href="https://github.com/mavalfelly" 
@@ -48,7 +46,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="text-center pt-8 border-t border-gray-800">
           <p className="text-sm text-gray-500">
             © {currentYear} Matthew Feliciano. Built with React, TypeScript, and Tailwind CSS.

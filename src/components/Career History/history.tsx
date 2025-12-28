@@ -52,7 +52,6 @@ const CareerHistory = () => {
       </div>
 
       <div className="relative">
-        {/* Timeline Line */}
         <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-lime-500 via-green-500 to-transparent"></div>
 
         <div className="space-y-12">
@@ -63,10 +62,8 @@ const CareerHistory = () => {
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
             >
-              {/* Timeline Dot */}
               <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-lime-500 rounded-full -ml-2 ring-4 ring-custom-bg"></div>
 
-              {/* Content Card */}
               <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                 <div className="bg-white rounded-xl shadow-xl p-6 hover:shadow-2xl transition-shadow">
                   <div className="flex items-start justify-between mb-4">
@@ -97,14 +94,12 @@ const CareerHistory = () => {
                 </div>
               </div>
 
-              {/* Spacer for alternating layout */}
               <div className="hidden md:block flex-1"></div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Resume Download */}
       <div className="text-center mt-12">
         <a
           href="/MatthewFeliciano.pdf"

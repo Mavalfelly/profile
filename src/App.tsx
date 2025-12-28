@@ -13,13 +13,11 @@ import CareerHistory from './components/Career History/history'
 
 function App() {
   useEffect(() => {
-    // Set document title
-    document.title = 'Matthew Feliciano | Software Engineer & DevOps Specialist';
+    document.title = 'Matthew Feliciano | DevOps Engineer & Cloud Infrastructure Specialist';
     
-    // Set meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Matthew Feliciano - Software Engineer specializing in DevOps, Cloud Infrastructure, and Full-Stack Development. Expert in Kubernetes, Docker, AWS, Azure, React, and Python.');
+      metaDescription.setAttribute('content', 'Matthew Feliciano - DevOps Engineer specializing in Azure DevOps, AWS, Terraform, Kubernetes. Led 70+ repo Spring migration and built custom Renovate automation pipelines.');
     }
   }, []);
 

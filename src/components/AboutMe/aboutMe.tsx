@@ -3,25 +3,24 @@ import { Code2, Cloud, Briefcase, Award } from "lucide-react";
 
 const AbMe = () => {
   const skills = [
-    { name: "JavaScript/TypeScript", level: 90 },
-    { name: "React & Node.js", level: 85 },
-    { name: "Python & Java", level: 80 },
-    { name: "Kubernetes & Docker", level: 85 },
-    { name: "AWS & Azure", level: 75 },
-    { name: "CI/CD & DevOps", level: 80 },
+    { name: "Azure DevOps & CI/CD", level: 95 },
+    { name: "Kubernetes & Docker", level: 90 },
+    { name: "AWS & Terraform", level: 90 },
+    { name: "Custom Automation & Tooling", level: 90 },
+    { name: "Python & Shell Scripting", level: 85 },
+    { name: "JavaScript/TypeScript & Java", level: 80 },
   ];
 
   const stats = [
-    { icon: Code2, value: "3+", label: "Years Coding" },
-    { icon: Briefcase, value: "10+", label: "Projects Completed" },
-    { icon: Cloud, value: "5+", label: "Cloud Platforms" },
-    { icon: Award, value: "100%", label: "Client Satisfaction" },
+    { icon: Code2, value: "70+", label: "Repos Migrated" },
+    { icon: Cloud, value: "3+", label: "Years DevOps" },
+    { icon: Briefcase, value: "Custom", label: "Renovate Pipeline" },
+    { icon: Award, value: "AWS/IaC", label: "Expertise" },
   ];
 
   return (
     <div id="about_me" className="max-w-6xl mx-auto px-4 py-16">
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Left Column - Profile */}
         <div className="bg-white rounded-xl shadow-2xl p-8">
           <div className="flex flex-col items-center mb-6">
             <img
@@ -31,9 +30,10 @@ const AbMe = () => {
             />
             <div className="text-center">
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Matthew Feliciano</h2>
-              <div className="text-lg text-lime-600 font-semibold mb-4">
+              <p className="text-xl text-lime-600 font-bold mb-2">DevOps Engineer</p>
+              <div className="text-md text-gray-600 font-medium">
                 <Typer
-                  phrases={["Software Engineer", "DevOps Specialist", "Full-Stack Developer", "Cloud Architect"]}
+                  phrases={["Systems Engineer", "Migration Specialist", "Automation Engineer", "Infrastructure Expert"]}
                   speed={100}
                   deleteSpeed={50}
                   displayTime={2500}
@@ -42,7 +42,6 @@ const AbMe = () => {
             </div>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
@@ -57,19 +56,20 @@ const AbMe = () => {
           </div>
         </div>
 
-        {/* Right Column - About & Skills */}
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-2xl p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">About Me</h3>
-            <p className="text-gray-700 leading-relaxed mb-6">
-              I am a software engineer with a strong foundation in full-stack development and currently specialize in DevOps and Infrastructure. Utilizing my expertise in JavaScript, React, Python, and Java, I have built scalable applications using MongoDB, SQL, and TailwindCSS.
+            <p className="text-gray-700 leading-relaxed mb-4">
+              <span className="font-semibold text-gray-900">DevOps Engineer specializing in large-scale infrastructure automation and system migrations.</span> I successfully orchestrated a complete Spring framework migration across 70+ repositories, ensuring seamless transitions and minimal downtime across the entire microservices ecosystem.
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              I design and build custom automation solutions, including developing a custom Renovate bot Docker image and CI/CD pipeline for managing dependency updates across internal repositories. My expertise spans infrastructure as code with Terraform, container orchestration with Kubernetes and Docker, and building robust deployment pipelines in Azure DevOps.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              My transition into DevOps has expanded my skill set to include Kubernetes, Azure DevOps, Docker, Terraform, Spacelift, and AWS, where I focus on automating deployments, optimizing cloud infrastructure, and enhancing CI/CD pipelines.
+              With extensive AWS experience and a strong foundation in software development (JavaScript, Python, Java), I create scalable infrastructure solutions and automated workflows that enhance reliability, reduce deployment time, and maintain high system availability across cloud environments.
             </p>
           </div>
 
-          {/* Skills */}
           <div className="bg-white rounded-xl shadow-2xl p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Technical Skills</h3>
             <div className="space-y-4">
