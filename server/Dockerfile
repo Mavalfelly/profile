@@ -15,7 +15,7 @@ COPY server/ .
 # so we don't need to include it in the image.
 # We ensure the app user has permissions to write to the volume.
 RUN mkdir -p /app/data && chown -R node:node /app/data
-
+ENV ANALYTICS_FILE_OVERRIDE=/app/data/analytics-data.json
 # Switch to a non-root user for security
 USER node
 

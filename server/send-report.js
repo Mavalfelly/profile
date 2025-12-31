@@ -11,7 +11,13 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const getAnalyticsFile = () => process.env.ANALYTICS_FILE_OVERRIDE || path.join(__dirname, 'analytics-data.json');
+const getAnalyticsFile = () => {
+  const overridePath = process.env.ANALYTICS_FILE_OVERRIDE;
+  if (overridePath && overridePath.trim() !== '') {
+    return overridePath;
+  }
+  return path.join('/app/data', 'analytics-data.json');
+};
 
 // Ensure analytics file exists before proceeding
 const checkFile = () => {
