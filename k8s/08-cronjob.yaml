@@ -20,6 +20,9 @@ spec:
             envFrom:
             - secretRef:
                 name: email-credentials
+            env:
+            - name: ANALYTICS_FILE_OVERRIDE
+              value: /app/data/analytics-data.json
             volumeMounts:
             - name: analytics-data-storage
               mountPath: /app/data
