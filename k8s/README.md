@@ -81,7 +81,7 @@ kubectl apply -f k8s/
 
 ### 5. Configure DNS
 
-1.  **Find your k3s Ingress Controller\'s External IP**: You need to determine the external IP address that your k3s Ingress controller is exposed on. The method for this depends on your k3s setup (e.g., if it\'s running on a cloud provider, you might need to check your load balancer\'s IP). For a simple local setup, it might be the IP of your k3s server itself.
+1.  **Find your k3s Ingress Controller's External IP**: You need to determine the external IP address that your k3s Ingress controller is exposed on. The method for this depends on your k3s setup (e.g., if it's running on a cloud provider, you might need to check your load balancer's IP). For a simple local setup, it might be the IP of your k3s server itself.
 2.  **Configure DNS**: In your DNS provider (e.g., Namecheap), you will typically set up a DNS record for your domain `matt-feliciano.com`.
     *   **CNAME Record (Recommended for flexibility)**: Create a CNAME record for `matt-feliciano.com` (or a subdomain like `www.matt-feliciano.com`) and point it to the hostname or IP address provided by your k3s ingress controller. If your ingress controller has an external IP, you might create an A record pointing to that IP. However, if your ingress controller provides a stable hostname, using a CNAME pointing to that hostname is often preferred.
     *   **A Record**: If you have a static IP address for your k3s server or ingress, you can create an A record for `matt-feliciano.com` pointing directly to that IP address.
