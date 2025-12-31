@@ -37,7 +37,7 @@ jobs:
           # k3s Cluster Deployment Instructions
           
           ## Prerequisites
-          - k3s cluster running: `k3s start` or `k3d cluster create $CLUSTER_NAME --agents 2`
+          - k3s cluster running: `sudo systemctl start k3s` (native k3s) or `k3d cluster create $CLUSTER_NAME --agents 2` (k3d)
           - kubectl configured to access your cluster
           - Docker images built and pushed: `$DOCKER_USERNAME/portfolio-frontend:$IMAGE_TAG` and `portfolio-backend:$IMAGE_TAG`
           
