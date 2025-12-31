@@ -91,6 +91,8 @@ jobs:
           - Frontend: https://matt-feliciano.com (via Ingress)
           - API: https://matt-feliciano.com/api (via Ingress)
           EOF
+          envsubst < deployment-instructions.md > deployment-instructions.expanded.md
+          mv deployment-instructions.expanded.md deployment-instructions.md
           cat deployment-instructions.md
 
       - name: Upload deployment guide
