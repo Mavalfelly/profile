@@ -259,12 +259,13 @@ To use specific versions:
 ```
 
 To manually push from local:
+These commands assume your user can run `docker` without `sudo` (for example, by being in the `docker` group).
 ```bash
-sudo docker build -t mavalfelly25/portfolio-frontend:v1.2.3 .
-sudo docker push mavalfelly25/portfolio-frontend:v1.2.3
+docker build -t mavalfelly25/portfolio-frontend:v1.2.3 .
+docker push mavalfelly25/portfolio-frontend:v1.2.3
 
-sudo docker build -t mavalfelly25/portfolio-backend:v1.2.3 -f server/Dockerfile .
-sudo docker push mavalfelly25/portfolio-backend:v1.2.3
+docker build -t mavalfelly25/portfolio-backend:v1.2.3 -f server/Dockerfile .
+docker push mavalfelly25/portfolio-backend:v1.2.3
 ```
 
 ---
