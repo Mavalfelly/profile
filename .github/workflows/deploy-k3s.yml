@@ -1,0 +1,113 @@
+name: Deploy to Local k3s Cluster
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag to deploy (default: latest)'
+        required: false
+        default: 'latest'
+      cluster_name:
+        description: 'k3s cluster name'
+        required: false
+        default: 'profile'
+
+jobs:
+  deploy-to-k3s:
+    name: Deploy to k3s
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download deployment scripts
+        run: |
+          mkdir -p scripts
+          cp k8s/README.md scripts/
+          cp k8s/*.yaml scripts/ || true
+
+      - name: Generate deployment summary
+        env:
+          IMAGE_TAG: ${{ github.event.inputs.image_tag || 'latest' }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          CLUSTER_NAME: ${{ github.event.inputs.cluster_name || 'profile' }}
+        run: |
+          cat > deployment-instructions.md << 'EOF'
+          # k3s Cluster Deployment Instructions
+          
+          ## Prerequisites
+          - k3s cluster running: `sudo systemctl start k3s` (native k3s) or `k3d cluster create $CLUSTER_NAME --agents 2` (k3d)
+          - kubectl configured to access your cluster
+          - Docker images built and pushed: `$DOCKER_USERNAME/portfolio-frontend:$IMAGE_TAG` and `portfolio-backend:$IMAGE_TAG`
+          
+          ## Deployment Steps
+          
+          ### 1. Load Docker credentials (if using private registry)
+          ```bash
+          kubectl create secret docker-registry dockerhub \
+            --docker-server=docker.io \
+            --docker-username=$DOCKER_USERNAME \
+            --docker-password=$DOCKER_PASSWORD \
+            --docker-email=your-email@example.com \
+            -n portfolio
+          ```
+          
+          ### 2. Update image tags in manifests
+          Edit the following files and replace image tags as needed:
+          - `k8s/03-backend-deployment.yaml`: `image: $DOCKER_USERNAME/portfolio-backend:$IMAGE_TAG`
+          - `k8s/05-frontend-deployment.yaml`: `image: $DOCKER_USERNAME/portfolio-frontend:$IMAGE_TAG`
+          - `k8s/08-cronjob.yaml`: `image: $DOCKER_USERNAME/portfolio-backend:$IMAGE_TAG`
+          
+          ### 3. Update secrets with your email credentials
+          Edit `k8s/02-secrets.yaml` with base64-encoded email credentials:
+          ```bash
+          echo -n "your-email@gmail.com" | base64
+          echo -n "your-app-password" | base64
+          echo -n "recipient@example.com" | base64
+          ```
+          
+          ### 4. Apply manifests to the cluster
+          ```bash
+          kubectl apply -f k8s/
+          ```
+          
+          ### 5. Verify deployment
+          ```bash
+          kubectl get pods -n portfolio
+          kubectl logs -f deployment/portfolio-frontend -n portfolio
+          kubectl logs -f deployment/portfolio-backend -n portfolio
+          ```
+          
+          ### 6. Access the application
+          For local k3d:
+          ```bash
+          kubectl port-forward svc/portfolio-frontend 8080:80 -n portfolio &
+          kubectl port-forward svc/portfolio-backend 3001:3001 -n portfolio &
+          # Visit http://localhost:8080
+          ```
+          
+          For k3s on a server with DNS configured:
+          - Frontend: https://matt-feliciano.com (via Ingress)
+          - API: https://matt-feliciano.com/api (via Ingress)
+          EOF
+          envsubst < deployment-instructions.md > deployment-instructions.expanded.md
+          mv deployment-instructions.expanded.md deployment-instructions.md
+          cat deployment-instructions.md
+
+      - name: Upload deployment guide
+        uses: actions/upload-artifact@v4
+        with:
+          name: k3s-deployment-guide
+          path: deployment-instructions.md
+          retention-days: 7
+
+      - name: Deployment Summary
+        run: |
+          echo "### k3s Deployment Ready :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image Tag:** ${{ github.event.inputs.image_tag || 'latest' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Frontend Image:** \`${{ secrets.DOCKER_USERNAME }}/portfolio-frontend:${{ github.event.inputs.image_tag || 'latest' }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Backend Image:** \`${{ secrets.DOCKER_USERNAME }}/portfolio-backend:${{ github.event.inputs.image_tag || 'latest' }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download the deployment guide from artifacts for step-by-step instructions." >> $GITHUB_STEP_SUMMARY

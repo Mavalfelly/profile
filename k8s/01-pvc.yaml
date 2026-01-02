@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: analytics-data-pvc
+  namespace: portfolio
+spec:
+  accessModes:
+    - ReadWriteOnce # Mounted on a single node; both the backend and a periodic CronJob write here. Concurrent writes are not expected but could race if they overlap in time, so ensure app-level locking or scheduling prevents simultaneous access if this becomes an issue.
+  resources:
+    requests:
+      storage: 1Gi # 1GB should be more than enough for the JSON file

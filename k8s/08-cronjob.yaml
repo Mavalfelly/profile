@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: portfolio-analytics-reporter
+  namespace: portfolio
+spec:
+  # Run at 11:59 PM every day
+  schedule: "59 23 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: reporter
+            # IMPORTANT: Replace with your own image path
+            image: mavalfelly25/portfolio-backend:latest
+            imagePullPolicy: Always
+            command: ["node", "run-send-report.js"]
+            envFrom:
+            - secretRef:
+                name: email-credentials
+            env:
+            - name: ANALYTICS_FILE_OVERRIDE
+              value: /app/data/analytics-data.json
+            volumeMounts:
+            - name: analytics-data-storage
+              mountPath: /app/data
+          volumes:
+          - name: analytics-data-storage
+            persistentVolumeClaim:
+              claimName: analytics-data-pvc
